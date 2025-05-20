@@ -72,3 +72,13 @@ This project is open-source and available under the MIT License. You are free to
 
 🙌 Acknowledgements
 This project was developed as part of the CodTech AI Internship Program, designed to provide hands-on experience in building real-world AI applications. Special thanks to the CodTech team for the opportunity and guidance.
+
+#WEBSITE :
+
+![Image](https://github.com/user-attachments/assets/adfa428a-06a8-465c-996f-aa28bd10e812)
+
+#INPUT : AI
+
+#OUTPUT
+
+![Image](https://github.com/user-attachments/assets/35bd495d-11e7-4088-9605-a9f692a6c701)
