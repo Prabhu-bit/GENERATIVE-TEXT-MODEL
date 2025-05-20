@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Generation using GPT-2</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#4f46e5", secondary: "#8b5cf6" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :root {
+        --primary-color: #4f46e5;
+        --secondary-color: #8b5cf6;
+      }
+      .theme-transition {
+        transition: all 0.5s ease;
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Inter', sans-serif;
+      }
+      .code-font {
+      font-family: 'JetBrains Mono', monospace;
+      }
+      input:focus, textarea:focus {
+      outline: none;
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Hero Section -->
+    <section class="relative w-full overflow-hidden">
+      <div
+        style="background-image: url('https://readdy.ai/api/search-image?query=A%20modern%2C%20abstract%20tech%20background%20with%20soft%20blue%20and%20purple%20gradient%2C%20subtle%20grid%20patterns%2C%20and%20glowing%20particles%20representing%20AI%20and%20machine%20learning.%20The%20left%20side%20has%20a%20clean%2C%20light%20background%20for%20text%2C%20while%20the%20right%20side%20features%20more%20vibrant%20tech%20elements%20and%20digital%20connections.%20Perfect%20for%20an%20AI%20text%20generation%20project%20hero%20section.&width=1920&height=1080&seq=1&orientation=landscape');"
+        class="bg-cover bg-center h-[600px] w-full"
+      >
+        <div class="container mx-auto px-6 h-full flex items-center">
+          <div class="max-w-3xl">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Text Generation using GPT-2
+            </h1>
+            <p class="text-lg md:text-xl text-gray-700 mb-8">
+              An advanced natural language processing model that generates
+              human-like text based on input prompts. Experience the power of
+              AI-driven content creation with our implementation of OpenAI's
+              GPT-2.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <a
+                href="https://colab.research.google.com/drive/1toQlLE1l7M0juu_Wj3OHjZoQ6MX81Mn7?usp=sharing"
+                target="_blank"
+                class="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-3 !rounded-button whitespace-nowrap theme-transition"
+              >
+                <div class="w-5 h-5 flex items-center justify-center">
+                  <i class="ri-google-fill"></i>
+                </div>
+                Open in Colab
+              </a>
+              <a
+                href="https://github.com/Prabhu-bit/GENERATIVE-TEXT-MODEL"
+                target="_blank"
+                class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 !rounded-button whitespace-nowrap"
+              >
+                <div class="w-5 h-5 flex items-center justify-center">
+                  <i class="ri-github-fill"></i>
+                </div>
+                View on GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- How It Works Section -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-16">
+          How It Works
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div class="flex flex-col items-center text-center">
+            <div
+              class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6 theme-transition"
+            >
+              <span class="text-2xl font-bold text-primary theme-transition"
+                >1</span
+              >
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">
+              Input Your Prompt
+            </h3>
+            <p class="text-gray-600">
+              Enter a text prompt in the input field. This serves as the
+              starting point for the AI to generate content that follows
+              naturally from your input.
+            </p>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div
+              class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6 theme-transition"
+            >
+              <span class="text-2xl font-bold text-primary theme-transition"
+                >2</span
+              >
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">
+              AI Processing
+            </h3>
+            <p class="text-gray-600">
+              Our implementation of GPT-2 analyzes your prompt, understanding
+              context and semantics to predict the most likely continuation of
+              your text.
+            </p>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div
+              class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6 theme-transition"
+            >
+              <span class="text-2xl font-bold text-primary theme-transition"
+                >3</span
+              >
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">
+              Generated Output
+            </h3>
+            <p class="text-gray-600">
+              Receive a coherent, contextually relevant text completion that
+              extends your original prompt in a natural and human-like manner.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Live Demo Section -->
+    <section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-16">
+          Try It Yourself
+        </h2>
+        <div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6 mb-16">
+          <div class="mb-6">
+            <label
+              for="prompt"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Enter your prompt:</label
+            >
+            <textarea
+              id="prompt"
+              rows="3"
+              class="w-full px-4 py-3 border border-gray-300 rounded text-gray-800 resize-none"
+              placeholder="Once upon a time in a distant galaxy..."
+            ></textarea>
+          </div>
+          <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center gap-4">
+              <label class="flex items-center text-sm text-gray-700">
+                <span class="mr-2">Length:</span>
+                <select
+                  id="length"
+                  class="bg-white border border-gray-300 rounded px-3 py-2 pr-8 text-gray-800"
+                >
+                  <option value="50">Short</option>
+                  <option value="100" selected>Medium</option>
+                  <option value="200">Long</option>
+                </select>
+              </label>
+              <label class="flex items-center text-sm text-gray-700">
+                <span class="mr-2">Temperature:</span>
+                <input
+                  type="range"
+                  id="temperature"
+                  min="0"
+                  max="1"
+                  step="0.1"
+                  value="0.7"
+                  class="w-24 h-2 bg-gray-300 rounded-full appearance-none"
+                />
+                <span id="tempValue" class="ml-2">0.7</span>
+              </label>
+            </div>
+            <button
+              id="generateBtn"
+              class="bg-primary hover:bg-primary/90 text-white px-6 py-2 !rounded-button whitespace-nowrap theme-transition"
+            >
+              Generate
+            </button>
+          </div>
+          <div
+            id="loadingIndicator"
+            class="hidden flex justify-center items-center py-8"
+          >
+            <div
+              class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"
+            ></div>
+          </div>
+          <div id="outputContainer" class="hidden">
+            <h3 class="text-sm font-medium text-gray-700 mb-2">
+              Generated output:
+            </h3>
+            <div
+              id="output"
+              class="bg-gray-50 p-4 rounded code-font text-gray-800 whitespace-pre-wrap"
+            ></div>
+          </div>
+        </div>
+        <h3 class="text-2xl font-semibold text-center text-gray-900 mb-8">
+          Example Outputs
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div
+            class="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow"
+          >
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">Prompt:</h4>
+              <p class="text-gray-800">
+                The future of artificial intelligence depends on
+              </p>
+            </div>
+            <div>
+              <h4 class="text-sm font-medium text-gray-500 mb-2">Output:</h4>
+              <p class="code-font text-gray-800">
+                The future of artificial intelligence depends on our ability to
+                create systems that can learn and adapt to new situations. As
+                researchers continue to push the boundaries of what's possible,
+                we're seeing AI systems that can not only process vast amounts
+                of data but also understand context, recognize patterns, and
+                make increasingly sophisticated decisions. The ethical
+                implications of these advancements cannot be overlooked. We must
+                ensure that AI development proceeds with careful consideration
+                of potential societal impacts, privacy concerns, and the need
+                for transparency in how these systems operate.
+              </p>
+            </div>
+          </div>
+          <div
+            class="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow"
+          >
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">Prompt:</h4>
+              <p class="text-gray-800">
+                In a world where technology and nature coexist,
+              </p>
+            </div>
+            <div>
+              <h4 class="text-sm font-medium text-gray-500 mb-2">Output:</h4>
+              <p class="code-font text-gray-800">
+                In a world where technology and nature coexist, the boundaries
+                between the artificial and the organic have blurred beyond
+                recognition. Smart forests monitor their own health, sending
+                data to conservation centers. Bioluminescent plants line city
+                streets, responding to pedestrian movement with gentle waves of
+                blue-green light. People no longer see technology as separate
+                from nature but as an extension of it. Homes are built with
+                living walls that purify air and regulate temperature. Wearable
+                devices connect users to their surroundings, translating the
+                chemical signals of plants and the movements of animals into
+                information humans can understand and respond to.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="py-12 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="max-w-3xl mx-auto text-center">
+          <div class="mb-4">
+            <span class="text-lg font-semibold text-gray-900"
+              >Created by Alexander Mitchell</span
+            >
+          </div>
+          <p class="text-gray-600 mb-6">
+            As part of an internship at OpenAI Research Lab
+          </p>
+          <div class="w-24 h-px bg-gray-300 mx-auto"></div>
+          <p class="mt-6 text-sm text-gray-500">Last updated: May 20, 2025</p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const themes = [
+          { primary: "#4f46e5", secondary: "#8b5cf6" },
+          { primary: "#10b981", secondary: "#34d399" },
+          { primary: "#f59e0b", secondary: "#fbbf24" },
+          { primary: "#ef4444", secondary: "#f87171" },
+          { primary: "#6366f1", secondary: "#818cf8" },
+        ];
+        let currentThemeIndex = 0;
+        function updateThemeColors() {
+          const theme = themes[currentThemeIndex];
+          document.documentElement.style.setProperty(
+            "--primary-color",
+            theme.primary,
+          );
+          document.documentElement.style.setProperty(
+            "--secondary-color",
+            theme.secondary,
+          );
+
+          document.querySelectorAll(".bg-primary").forEach((el) => {
+            el.style.backgroundColor = theme.primary;
+          });
+
+          document.querySelectorAll(".text-primary").forEach((el) => {
+            el.style.color = theme.primary;
+          });
+
+          document.querySelectorAll(".bg-primary\\/10").forEach((el) => {
+            el.style.backgroundColor = `${theme.primary}1a`;
+          });
+
+          document.querySelectorAll(".border-primary").forEach((el) => {
+            el.style.borderColor = theme.primary;
+          });
+
+          currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+        }
+        setInterval(updateThemeColors, 2000);
+        const tempSlider = document.getElementById("temperature");
+        const tempValue = document.getElementById("tempValue");
+        const generateBtn = document.getElementById("generateBtn");
+        const promptInput = document.getElementById("prompt");
+        const outputContainer = document.getElementById("outputContainer");
+        const output = document.getElementById("output");
+        const loadingIndicator = document.getElementById("loadingIndicator");
+        const lengthSelect = document.getElementById("length");
+        tempSlider.addEventListener("input", function () {
+          tempValue.textContent = this.value;
+        });
+        generateBtn.addEventListener("click", function () {
+          if (!promptInput.value.trim()) {
+            alert("Please enter a prompt first");
+            return;
+          }
+          // Show loading indicator
+          loadingIndicator.classList.remove("hidden");
+          outputContainer.classList.add("hidden");
+          // Simulate API call with timeout
+          setTimeout(() => {
+            generateText(
+              promptInput.value,
+              parseFloat(tempSlider.value),
+              parseInt(lengthSelect.value),
+            );
+            loadingIndicator.classList.add("hidden");
+            outputContainer.classList.remove("hidden");
+          }, 1500);
+        });
+        function generateText(prompt, temperature, length) {
+          // This is a mock function - in a real app, this would call an API
+          const examples = [
+            "The model has generated this text based on your input. It attempts to continue the narrative in a coherent and contextually appropriate way. The temperature setting affects how creative or focused the output is, with higher values producing more diverse and sometimes surprising results.",
+            "As we explore the capabilities of language models, it becomes clear that they can assist with a wide range of tasks - from creative writing to information summarization. This text is an example of how the model can extend your prompt into a longer passage while maintaining thematic consistency.",
+            "Language models like GPT-2 work by predicting the most likely next word in a sequence, based on patterns learned from vast amounts of text data. The output you're reading now demonstrates this capability, showing how the model can generate human-like text that follows naturally from your prompt.",
+          ];
+          // Select a random example and modify it slightly based on parameters
+          let result = examples[Math.floor(Math.random() * examples.length)];
+          // Add some variability based on temperature
+          if (temperature > 0.7) {
+            result +=
+              "\n\nWith the higher temperature setting you've selected, the output contains more creative elements and potentially unexpected directions in the generated text.";
+          } else {
+            result +=
+              "\n\nWith the lower temperature setting you've selected, the output remains more focused and predictable, closely following the most likely continuations of your prompt.";
+          }
+          // Adjust length
+          if (length > 100) {
+            result +=
+              "\n\nThe length parameter you've chosen allows for more extensive development of ideas and themes, giving the model space to explore the concepts introduced in your prompt in greater detail.";
+          }
+          output.textContent = result;
+        }
+      });
+    </script>
+  </body>
+</html>
