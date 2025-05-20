@@ -63,7 +63,7 @@ The role of AI in modern education is becoming increasingly significant. From in
 🌐 Live Resources
 📄 Notebook: https://colab.research.google.com/drive/1HCSI3Pgp0klSfJ0Qe-s1SjvXREfwXYCY?usp=sharing
 
-💻 Website: Visit Live Website
+💻 Website: https://inquisitive-duckanoo-796b3c.netlify.app/
 
 📁 GitHub Repo: https://github.com/Prabhu-bit/GENERATIVE-TEXT-MODEL
 
