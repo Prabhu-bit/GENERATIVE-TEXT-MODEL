@@ -1,19 +1,5 @@
 # GENERATIVE-TEXT-MODEL
 
-COMPANY : CODTECH IT SOLUTIONS
-
-NAME : BASAVAPRABHU R HALAKATTI
-
-INTERN ID : CT04DL919
-
-DOMAIN : ARTIFICIAL INTELLIGENCE
-
-DURATION : 4 WEEKS
-
-MENTOR : NEELA SANTOSH
-
-#DESCRIPTION
-
 This project is a demonstration of how advanced natural language processing (NLP) models like GPT-2 can be used to generate coherent, human-like text based on a simple input prompt. Built as part of my CodTech AI Internship, the project aims to showcase the practical applications of transformer-based models in text synthesis and creative writing.
 
 The model used in this project is GPT-2 (Generative Pre-trained Transformer 2), developed by OpenAI. GPT-2 is trained on a large corpus of internet text and is capable of understanding context, grammar, and semantics well enough to generate meaningful paragraphs. By providing a short phrase or topic — such as "Artificial Intelligence in Education" or "Climate Change Impacts" — the model generates a continuation that resembles what a human might write on that topic.
@@ -70,8 +56,6 @@ The role of AI in modern education is becoming increasingly significant. From in
 📜 License
 This project is open-source and available under the MIT License. You are free to use, modify, and share the code for educational and non-commercial purposes.
 
-🙌 Acknowledgements
-This project was developed as part of the CodTech AI Internship Program, designed to provide hands-on experience in building real-world AI applications. Special thanks to the CodTech team for the opportunity and guidance.
 
 #WEBSITE :
 
